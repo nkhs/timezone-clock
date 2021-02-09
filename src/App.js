@@ -13,8 +13,26 @@ class App extends Component {
       list: [],
       newTimeZone: ''
     }
+    this.selectedZone = null;
   }
   componentDidMount() {
+    var $ = window.$
+    $('#picker').timezonePicker({
+      hoverText: function (e, data) {
+        return (data.timezone + " (" + data.zonename + ")");
+      },
+      defaultValue: { value: "IN", attribute: "country" }
+    });
+    var self = this;
+    $('#picker').on("map:value:changed", function () {
+      var value = $('#picker').data('timezonePicker').getValue();
+      if (value[0]) value = value[0]
+      if (value == null) return;
+
+      self.selectedZone = value
+      self.onTimezoneSelected(value.timezone)
+    });
+
     var list = Storage.getStorage('zoneList') || [];
     this.setState({ list: list })
     setInterval(() => {
@@ -22,8 +40,10 @@ class App extends Component {
       var now = new Date();
 
       list = list.map(item => {
-        var time = moment(new Date(now)).tz(item.tz).format('HH:mm:ss')
-        item.time = time;
+        try {
+          var time = moment(new Date(now)).tz(item.timezone).format('HH:mm:ss')
+          item.time = time;
+        } catch (e) { }
         return item
       })
 
@@ -47,9 +67,9 @@ class App extends Component {
     if (newTimeZone.length == 0) return
 
     var { list } = this.state;
-    this.setState({ list: [...list, { tz: newTimeZone }] })
+    this.setState({ list: [...list, this.selectedZone] })
     var tmp = JSON.parse(JSON.stringify(list))
-    tmp.push({ tz: newTimeZone })
+    tmp.push(this.selectedZone)
     Storage.setStorage('zoneList', tmp)
   }
 
@@ -61,7 +81,8 @@ class App extends Component {
           {list.map((item, i) => {
             return <div className="card p-2 mb-2" key={i}>
               <div className="d-flex justify-content-between align-items-center ">
-                <span>{item.tz}</span>
+                <span>{item.country}</span>
+                <span>{item.timezone}</span>
                 <div className="d-flex align-items-center">
                   <span className="me-3 fs-1">{item.time}</span>
                   <button className="btn btn-danger btn-sm" onClick={() => this.onDeleteClicked(i)} style={{ height: '40px' }}>X</button>
@@ -71,23 +92,17 @@ class App extends Component {
 
           })}
           <div>
-            <TimezonePicker
-              // onChange={this.onTimezoneSelected}
-              // defaultValue={'America/New_York'}
-              // unselectLabel="No Timezone"
-              // style={{
-              //   borderRadius: '0.5rem',
-              //   background: 'teal',
-              //   color: 'white',
-              // }}
+            <button className="btn btn-success btn-sm" onClick={this.onAddClicked} disabled={this.state.newTimeZone.length == 0}>+</button>
+            <div id="picker"></div>
+            {/* <TimezonePicker
               value="Asia/Yerevan"
               onChange={this.onTimezoneSelected}
               inputProps={{
                 placeholder: 'Select Timezone...',
                 name: 'timezone',
               }}
-            />
-            <button className="btn btn-success btn-sm" onClick={this.onAddClicked} disabled={this.state.newTimeZone.length == 0}>+</button>
+            /> */}
+
           </div>
         </div>
       </div>
