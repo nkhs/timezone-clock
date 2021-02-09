@@ -6,9 +6,13 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.6.3",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.2",
+    "react-timezone": "^2.4.0",
+    "react-timezone-picker": "^1.0.8",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
