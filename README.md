@@ -1,7 +1,7 @@
 # Live Demo
 https://timezone-clock.web.app
 # Screen
-![Screen](http://prntscr.com/10defsa)
+![Screen](https://github.com/nkhs/timezone-clock/blob/master/doc/screen.jpg?raw=true)
 
 # Getting Started with Create React App
 
