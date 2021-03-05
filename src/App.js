@@ -65,8 +65,8 @@ class App extends Component {
   render() {
     var { list } = this.state;
     return (
-      <div className="container d-flex flex-column justify-content-center vh-100" >
-        <div className="align-content-center mt-5">
+      <div className="container d-flex flex-column justify-content-center1 vh-100" >
+        <div className="align-content-center1 mt-5">
           {list.map((item, i) => {
 
             var format = 'hh:mm:ss'
@@ -99,6 +99,7 @@ class App extends Component {
             <TimezonePicker onTimezoneSelected={e => this.onTimezoneSelected(e)} />
 
           </div>
+          <a href='https://github.com/nkhs/timezone-clock'>https://github.com/nkhs/timezone-clock</a>
         </div>
       </div>
     );

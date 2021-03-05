@@ -43,8 +43,8 @@ class TimezonePicker extends Component {
     render() {
         return <>
             <div id="timezone-picker">
-                <img id="timezone-image" src="images/gray-600.png" width="600" height="300" useMap="#timezone-map" />
-                <img className="timezone-pin" src="images/pin.png" style={{ paddingTop: '4px' }} />
+                <img id="timezone-image" src="images/gray-600.png" width="600" height="300" useMap="#timezone-map" alt='gray 600'/>
+                <img className="timezone-pin" src="images/pin.png" style={{ paddingTop: '4px' }} alt='pin'/>
                 <map name="timezone-map" id="timezone-map">
                     <area data-timezone="Africa/Abidjan" data-country="CI" data-pin="293,141" data-offset="0" shape="poly" coords="290,142,287,143,288,140,286,139,286,137,287,137,286,136,287,136,286,133,290,132,290,133,291,133,293,134,295,133,296,136,295,139,295,141,290,142" />
                     <area data-timezone="Africa/Accra" data-country="GH" data-pin="300,141" data-offset="0" shape="poly" coords="301,140,297,142,295,142,295,141,295,139,296,136,295,132,300,132,301,136,301,139,302,140,301,140" />
